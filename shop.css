@@ -128,3 +128,22 @@ dialog form { gap: .7rem; }
   .meta { font-size: .75rem; }
 }
 @media print { .mast, .hero, .menu, .station, footer, .reset { display: none; } .scoreboard { border: 0; } }
+
+.steps { padding-left: 1.4rem; line-height: 1.55; margin: .85rem 0 1rem; }
+.steps li + li, .evidence li + li { margin-top: .5rem; }
+.repair { grid-column: 1 / -1; padding: clamp(1.15rem, 2.5vw, 2rem); border: 1.5px solid var(--ink); border-left: .45rem solid #398065; border-radius: .65rem; background: #eff5e9; }
+.repair .counter-head { margin-bottom: .75rem; }
+.repair h3 { font-size: clamp(1.45rem, 2.2vw, 2rem); }
+.repair p { line-height: 1.55; }
+.repair .lesson { margin-bottom: 0; }
+.repair form { max-width: 38rem; }
+select { font: inherit; width: 100%; max-width: 100%; color: var(--ink); background: white; border: 1.5px solid #756677; border-radius: .35rem; padding: .65rem .4rem; margin: 0 0 1rem; }
+select:focus-visible { outline: 3px solid #1365a4; outline-offset: 3px; }
+.checks { padding: 0; max-width: 34rem; margin: 1rem 0 .4rem; list-style: none; }
+.checks li { display: flex; align-items: baseline; gap: 1rem; justify-content: space-between; padding: .45rem 0; border-bottom: 1px solid var(--rule); }
+.checks strong { color: #25543d; }
+.small-note { font-size: .92rem; }
+.evidence { padding-left: 1.55rem; line-height: 1.65; }
+.evidence b { margin-right: .25rem; }
+.hint .chalkboard { margin: .65rem 0; }
+@media (max-width: 760px) { nav { flex-wrap: wrap; column-gap: .8rem; row-gap: .5rem; } .chip { flex-shrink: 0; } }

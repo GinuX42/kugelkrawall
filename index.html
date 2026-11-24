@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fcf6e8">
-  <meta name="description" content="Ein fiktiver Eisshop für den Web-Unterricht. Entdecken Sie drei ausgefallene Eissorten und lösen Sie zwei Websecurity-Rätsel.">
+  <meta name="description" content="Ein fiktiver Eisshop für den Web-Unterricht. Finden Sie eine Geheimsorte, reparieren Sie die Sortensuche und das Gästebuch und lösen Sie den Fall an der Eistafel.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; connect-src 'none'; object-src 'none'">
   <title>ice-Breaker · Eistheke &amp; Rätsel</title>
   <link rel="icon" href="kugel.png">
@@ -16,8 +16,8 @@
   <header class="mast">
     <div class="wrap mast-inner">
       <a class="brand" href="#inhalt" aria-label="ice-Breaker, Startseite"><span class="cone-mark" aria-hidden="true"></span>ice-Breaker</a>
-      <nav aria-label="Shopnavigation"><a href="#eiskarte">Eiskarte</a><a href="#raetsel">Rätsel</a><a href="#gaestebuch">Gästebuch</a></nav>
-      <a class="score" href="#spielstand"><span aria-hidden="true">★</span> <span id="header-score">0 / 100 Pkt.</span></a>
+      <nav aria-label="Shopnavigation"><a href="#eiskarte">Eiskarte</a><a href="#raetsel">Rätsel</a><a href="#gaestebuch">Gästebuch</a><a href="#schichtwechsel">Schichtwechsel</a></nav>
+      <a class="score" href="#spielstand"><span aria-hidden="true">★</span> <span id="header-score">0 / 200 Pkt.</span></a>
     </div>
   </header>
   <main id="inhalt">
@@ -26,9 +26,9 @@
         <div class="hero-copy">
           <p class="eyebrow"><span class="line"></span> Eisdiele &amp; Websecurity-Spiel</p>
           <h1 id="title">Eis mit<br><em>Geheimnis.</em></h1>
-          <p class="lede">Drei Sorten stehen in der Theke. Eine vierte kennt nur das Lager. Knacken Sie die Sortensuche und übernehmen Sie die Eistafel im Gästebuch.</p>
+          <p class="lede">Drei Sorten stehen in der Theke. Eine vierte kennt nur das Lager. Entdecken Sie die vierte Sorte, untersuchen Sie das Gästebuch und reparieren Sie beide Stationen. Zum Schluss lösen Sie zu zweit einen Fall an der Eistafel.</p>
           <div class="hero-actions"><a class="button cherry" href="#raetsel">Erstes Rätsel starten</a><a class="text-link" href="#eiskarte">Eiskarte ansehen</a></div>
-          <p class="meta">2 Rätsel <span>•</span> 100 Punkte <span>•</span> Ohne Anmeldung</p>
+          <p class="meta">2 Rätsel + 2 Reparaturen + 1 Partnerfall <span>•</span> 200 Punkte <span>•</span> Ohne Anmeldung</p>
         </div>
         <figure class="window">
           <div class="awning" aria-hidden="true"></div>
@@ -62,7 +62,8 @@
       <section id="raetsel" class="station section" aria-labelledby="sql-title">
         <div class="station-copy"><p class="eyebrow"><span class="line"></span> Rätsel 1 · SQL-Injection</p>
           <h2 id="sql-title">Die vierte Sorte<span>.</span></h2>
-          <p>Suchen Sie zuerst nach einer Zutat wie „Mango“. Erweitern Sie dann die Suche so, dass auch die geheime Lagersorte erscheint.</p>
+          <p><b>Ihr Ziel:</b> Finden Sie den Namen der Sorte im Geheimlager.</p>
+          <ol class="steps"><li>Geben Sie <code>Mango</code> in die Sortensuche ein und wählen Sie <b>Suchen</b>. Lesen Sie den Treffer.</li><li>Öffnen Sie den Bon unten. Bilden Sie mit seinen Angaben einen Kassenbefehl für Theke und Lager zusammen.</li><li>Ersetzen Sie Mango durch Ihren Befehl und wählen Sie <b>Suchen</b>. Bei vier Treffern nennt die Kasse die Geheimsorte und vergibt 50 Punkte.</li></ol>
           <details><summary>Bon aus der Eisküche lesen</summary><div class="hint"><b>Bestellbon für die Sortensuche</b><p>Die Kasse liest <code>KARTE[THEKE]</code> als „zeige die Auslage“. Auf jeder Eiskiste steht entweder <code>THEKE</code> oder <code>LAGER</code>. Ein Plus verbindet zwei Bereiche innerhalb derselben Klammer.</p></div></details>
           <details><summary>Zusätzlicher Tipp</summary><p>Lassen Sie THEKE im Feld stehen und ergänzen Sie LAGER innerhalb der eckigen Klammern. Der Bon zeigt Ihnen, welches Wort vor der Klammer steht.</p></details>
         </div>
@@ -70,13 +71,27 @@
           <form id="search-form"><label for="search">Sorte, Zutat oder Kassenbefehl</label><div class="field-row"><input id="search" type="search" maxlength="160" placeholder="z. B. Mango" autocomplete="off"><button class="button dark" type="submit">Suchen</button></div></form>
           <p id="search-result" class="feedback" role="status">Die Kasse durchsucht die drei Sorten in der Theke.</p>
           <a class="text-link" href="#eiskarte">Treffer in der Eiskarte ansehen</a>
-          <div class="lesson" id="sql-lesson" hidden><strong>Was ist im Modell passiert?</strong><p>Die Kasse hat einen Suchwert als Anweisung behandelt und auch das Lager angezeigt. Bei SQL-Injection verändert eine Eingabe die Datenbankabfrage. Parametrisierte Abfragen halten Anweisung und Suchwert getrennt.</p><a class="text-link" href="#gaestebuch">Zum Gästebuch</a></div>
+          <div class="lesson" id="sql-lesson" hidden><strong>Was ist im Modell passiert?</strong><p>Die Kasse hat einen Suchwert als Anweisung behandelt und auch das Lager angezeigt. Bei SQL-Injection verändert eine Eingabe die Datenbankabfrage. Parametrisierte Abfragen halten Anweisung und Suchwert getrennt.</p><a class="text-link" href="#suchschutz">Weiter zur Reparatur der Sortensuche</a></div>
         </div>
+        <section class="repair" id="suchschutz" aria-labelledby="sqlfix-title">
+          <div class="counter-head"><h3 id="sqlfix-title">Sortensuche reparieren</h3><span class="chip" id="sqlfix-chip">25 Pkt.</span></div>
+          <p id="sqlfix-locked">Lösen Sie zuerst „Die vierte Sorte“. Dann können Sie hier den Schutz einschalten und prüfen.</p>
+          <div id="sqlfix-controls" hidden>
+            <p><b>Ihr Ziel:</b> Mango bleibt auffindbar. Der Bon für Theke und Lager darf die Geheimsorte nicht mehr zeigen.</p>
+            <ol class="steps"><li>Wählen Sie eine Schutzmaßnahme und klicken Sie auf <b>Schutz einschalten</b>.</li><li>Testen Sie im Feld <a href="#search">Sorte, Zutat oder Kassenbefehl</a> Ihren erfolgreichen Bon aus dem ersten Rätsel. Wählen Sie <b>Suchen</b>.</li><li>Testen Sie dort den Suchbegriff <code>Mango</code>. Wählen Sie erneut <b>Suchen</b>.</li></ol>
+            <form id="sqlfix-form"><label for="sqlfix-choice">Welche Maßnahme schützt die Sortensuche?</label><select id="sqlfix-choice" required><option value="">Bitte wählen</option><option value="sort">Treffer nach Preis sortieren</option><option value="parameter">Suchwert getrennt an die feste Abfrage übergeben</option><option value="case">Suchbegriff in Großbuchstaben umwandeln</option></select><button class="button dark" type="submit">Schutz einschalten</button></form>
+            <p class="feedback" id="sqlfix-feedback" role="status"></p>
+            <ul class="checks"><li>Spielbefehl abgefangen <strong id="sqlfix-command">offen</strong></li><li>Normaler Suchbegriff funktioniert <strong id="sqlfix-normal">offen</strong></li></ul>
+            <p class="small-note">Sobald beide Tests bestanden sind, erhalten Sie 25 Punkte.</p>
+          </div>
+          <p id="sqlfix-lesson" class="lesson" hidden><b>Reparatur geprüft.</b> Beide Tests sind bestanden. <a href="#gaestebuch">Weiter zum Gästebuch</a></p>
+        </section>
       </section>
       <section id="gaestebuch" class="station section" aria-labelledby="xss-title">
         <div class="station-copy"><p class="eyebrow"><span class="line"></span> Rätsel 2 · Cross-Site-Scripting</p>
           <h2 id="xss-title">Krach an der Eistafel<span>.</span></h2>
-          <p>Ein normaler Gästebucheintrag erscheint unter „Letzter Eintrag“. Finden Sie heraus, wie Ihr Eintrag stattdessen die Meldung <b>KIRSCHALARM</b> auf der Eistafel auslösen kann.</p>
+          <p><b>Ihr Ziel:</b> Bringen Sie die Eistafel im Spiel dazu, <b>KIRSCHALARM</b> anzuzeigen.</p>
+          <ol class="steps"><li>Schreiben Sie <code>Die Minze schmeckt frisch.</code> in <b>Ihr Eintrag</b> und wählen Sie <b>Eintrag testen</b>. Vergleichen Sie den Text unter <b>Letzter Eintrag</b> mit dem Text auf der Eistafel.</li><li>Öffnen Sie den Notizzettel unten. Übernehmen Sie den Stempel und ändern Sie seine Meldung.</li><li>Testen Sie Ihren neuen Eintrag. Sobald die Tafel KIRSCHALARM zeigt, erhalten Sie 50 Punkte.</li></ol>
           <details><summary>Notizzettel am Gästebuch lesen</summary><div class="hint"><b>Vom letzten Schichtwechsel</b><p>Der alte Tafelstempel hieß <code>[TAFEL]PAUSE[/TAFEL]</code>. Der Text zwischen den Marken bestimmt die Meldung. Den heutigen Alarmnamen finden Sie im Auftrag.</p></div></details>
           <details><summary>Zusätzlicher Tipp</summary><p>Ersetzen Sie auf dem Notizzettel nur das Wort PAUSE durch den gesuchten Alarmnamen. Übernehmen Sie beide Tafelmarken in Ihren Eintrag.</p></details>
         </div>
@@ -85,13 +100,43 @@
           <form id="guest-form"><label for="entry">Ihr Eintrag</label><textarea id="entry" rows="2" maxlength="200" placeholder="Wie schmeckt Ihr Eis?" required></textarea><button class="button dark" type="submit">Eintrag testen</button></form>
           <div class="last"><b>Letzter Eintrag</b><span id="last-entry">Das Gästebuch ist noch leer.</span></div>
           <p class="feedback" id="guest-result" role="status"></p>
-          <div class="lesson" id="xss-lesson" hidden><strong>Was ist im Modell passiert?</strong><p>Der Eintrag hat die Tafel verändert. Bei echtem XSS kann fremder Code im Browser mit den Rechten der Seite laufen. Hier schaltet eine Spielregel die Anzeige um. Für reine Textausgaben in einem gewöhnlichen HTML-Element eignet sich <code>textContent</code>.</p></div>
+          <div class="lesson" id="xss-lesson" hidden><strong>Was ist im Modell passiert?</strong><p>Der Eintrag hat die Tafel verändert. Bei echtem XSS kann fremder Code im Browser mit den Rechten der Seite laufen. Hier schaltet eine Spielregel die Anzeige um. Für reine Textausgaben in einem gewöhnlichen HTML-Element eignet sich <code>textContent</code>.</p><a class="text-link" href="#textschutz">Weiter zur Reparatur des Gästebuchs</a></div>
+        </div>
+        <section class="repair" id="textschutz" aria-labelledby="xssfix-title">
+          <div class="counter-head"><h3 id="xssfix-title">Gästebuch reparieren</h3><span class="chip" id="xssfix-chip">25 Pkt.</span></div>
+          <p id="xssfix-locked">Lösen Sie zuerst „Krach an der Eistafel“. Dann können Sie hier den Schutz einschalten und prüfen.</p>
+          <div id="xssfix-controls" hidden>
+            <p><b>Ihr Ziel:</b> Kommentare bleiben lesbar. Ein Stempel darf die Eistafel nicht mehr ändern.</p>
+            <ol class="steps"><li>Wählen Sie eine Schutzmaßnahme und klicken Sie auf <b>Schutz einschalten</b>.</li><li>Testen Sie im Feld <a href="#entry">Ihr Eintrag</a> Ihren erfolgreichen KIRSCHALARM-Stempel. Wählen Sie <b>Eintrag testen</b>.</li><li>Testen Sie dort den normalen Kommentar <code>Die Minze schmeckt frisch.</code> Wählen Sie erneut <b>Eintrag testen</b>.</li></ol>
+            <form id="xssfix-form"><label for="xssfix-choice">Welche Maßnahme schützt das Gästebuch?</label><select id="xssfix-choice" required><option value="">Bitte wählen</option><option value="color">Tafelfarbe bei jedem Eintrag wechseln</option><option value="length">Kommentare auf 80 Zeichen kürzen</option><option value="text">Kommentar ausschließlich als Text ausgeben</option></select><button class="button dark" type="submit">Schutz einschalten</button></form>
+            <p class="feedback" id="xssfix-feedback" role="status"></p>
+            <ul class="checks"><li>Spielbefehl abgefangen <strong id="xssfix-command">offen</strong></li><li>Normaler Kommentar funktioniert <strong id="xssfix-normal">offen</strong></li></ul>
+            <p class="small-note">Sobald beide Tests bestanden sind, erhalten Sie 25 Punkte.</p>
+          </div>
+          <p id="xssfix-lesson" class="lesson" hidden><b>Reparatur geprüft.</b> Beide Tests sind bestanden. <a href="#schichtwechsel">Weiter zum Schichtwechsel</a></p>
+        </section>
+      </section>
+      <section id="schichtwechsel" class="station section" aria-labelledby="case-title">
+        <div class="station-copy"><p class="eyebrow"><span class="line"></span> Partnerfall · Spurensuche</p>
+          <h2 id="case-title">Schichtwechsel<span>.</span></h2>
+          <p><b>Ihr Ziel:</b> Welcher Gästebucheintrag hat die Meldung auf dem zweiten Tafelbild ausgelöst? Untersuchen Sie die Aufzeichnungen einer früheren Schicht.</p>
+          <ol class="steps"><li><b>Person A</b> öffnet die Rollenkarte „Gästebuch“ und liest Uhrzeiten und Wortlaut der vier Einträge.</li><li><b>Person B</b> öffnet die Rollenkarte „Eistafel“ und nennt beide Uhrzeiten und Tafeltexte. Allein können Sie beide Karten nacheinander öffnen.</li><li>Vergleichen Sie Zeitfenster und Wortlaut. Wählen Sie im Fallbericht den Eintrag, die Uhrzeit des zweiten Bildes und die passende Begründung. Klicken Sie auf <b>Fallbericht prüfen</b>.</li></ol>
+          <p>Bei drei passenden Angaben erhalten Sie 50 Punkte. An zwei Geräten reicht jede Person denselben Bericht auf ihrem eigenen Gerät ein.</p>
+          <details><summary>Rollenkarte A · Gästebuch</summary><div class="hint"><p>Die Einträge stehen in zeitlicher Reihenfolge. Eckige Tafelmarken kennzeichnen einen Spielstempel.</p><ol class="evidence"><li><b>14:05</b> <code>[TAFEL]KAKAOZEIT[/TAFEL]</code></li><li><b>14:06</b> <code>BEERENPAUSE</code></li><li><b>14:07</b> <code>[TAFEL]BEERENPAUSE[/TAFEL]</code></li><li><b>14:10</b> <code>[TAFEL]BEERENPAUSE[/TAFEL]</code></li></ol></div></details>
+          <details><summary>Rollenkarte B · Eistafel</summary><div class="hint"><div class="chalkboard"><span>Tafelbild 1 · 14:04 Uhr</span><strong>Heute frisch gerührt!</strong></div><div class="chalkboard"><span>Tafelbild 2 · 14:08 Uhr</span><strong>BEERENPAUSE</strong></div></div></details>
+        </div>
+        <div class="counter"><div class="counter-head"><strong>Fallbericht</strong><span class="chip" id="case-chip">50 Pkt.</span></div>
+          <form id="case-form"><label for="case-entry">Welcher Eintrag löste die Meldung aus?</label><select id="case-entry" required><option value="">Eintrag wählen</option><option value="1">Eintrag 1</option><option value="2">Eintrag 2</option><option value="3">Eintrag 3</option><option value="4">Eintrag 4</option></select>
+          <label for="case-time">Wann entstand das zweite Tafelbild?</label><select id="case-time" required><option value="">Uhrzeit wählen</option><option value="14:04">14:04 Uhr</option><option value="14:07">14:07 Uhr</option><option value="14:08">14:08 Uhr</option><option value="14:10">14:10 Uhr</option></select>
+          <label for="case-reason">Welche Beobachtung belegt Ihre Wahl?</label><select id="case-reason" required><option value="">Begründung wählen</option><option value="last">Es ist der letzte Eintrag der gesamten Schicht.</option><option value="match">Zeitfenster, Tafelmarken und Meldung passen zusammen.</option><option value="word">Dasselbe Wort steht im Kommentar. Das Wort allein genügt.</option></select>
+          <button type="submit" class="button dark">Fallbericht prüfen</button></form><p class="feedback" role="status" id="case-feedback"></p>
+          <p class="lesson" id="case-lesson" hidden><b>Fall aufgeklärt.</b> Eintrag 3 trug um 14:07 Uhr den passenden Stempel. Um 14:08 Uhr war die Meldung auf der Tafel zu sehen.</p>
         </div>
       </section>
       <section class="scoreboard section" id="spielstand" aria-labelledby="score-title">
-        <div><p class="eyebrow">Ihr Spielstand</p><h2 id="score-title"><span id="total">0</span> / 100 Punkte</h2><p id="progress-copy" role="status">Zwei Rätsel warten auf Sie.</p>
+        <div><p class="eyebrow">Ihr Spielstand</p><h2 id="score-title"><span id="total">0</span> / 200 Punkte</h2><p id="progress-copy" role="status">Beginnen Sie mit der Sortensuche.</p>
         <p class="storage-note" id="storage-note">Ihr Fortschritt wird in diesem Browser gespeichert.</p></div>
-        <div><ul class="tally"><li>Die vierte Sorte <strong id="sql-score">0 / 50</strong></li><li>Krach an der Eistafel <strong id="xss-score">0 / 50</strong></li></ul><button class="text-link reset" id="reset-button" type="button">Neue Runde beginnen</button></div>
+        <div><ul class="tally"><li>Die vierte Sorte <strong id="sql-score">0 / 50</strong></li><li>Krach an der Eistafel <strong id="xss-score">0 / 50</strong></li><li>Sortensuche reparieren <strong id="sqlfix-score">0 / 25</strong></li><li>Gästebuch reparieren <strong id="xssfix-score">0 / 25</strong></li><li>Schichtwechsel <strong id="case-score">0 / 50</strong></li></ul><button class="text-link reset" id="reset-button" type="button">Neue Runde beginnen</button></div>
       </section>
     </div>
   </main>
