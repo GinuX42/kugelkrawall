@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fcf6e8">
+  <meta name="description" content="Ein fiktiver Eisshop für den Web-Unterricht. Entdecken Sie drei ausgefallene Eissorten und lösen Sie zwei Websecurity-Rätsel.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; connect-src 'none'; object-src 'none'">
+  <title>Kugelkrawall · Eistheke &amp; Rätsel</title>
+  <link rel="icon" href="kugel.png">
+  <link rel="stylesheet" href="shop.css">
+  <script src="shop.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#inhalt">Zum Inhalt</a>
+  <header class="mast">
+    <div class="wrap mast-inner">
+      <a class="brand" href="#inhalt" aria-label="Kugelkrawall, Startseite"><span class="cone-mark" aria-hidden="true"></span>Kugelkrawall</a>
+      <nav aria-label="Shopnavigation"><a href="#eiskarte">Eiskarte</a><a href="#raetsel">Rätsel</a><a href="#gaestebuch">Gästebuch</a></nav>
+      <a class="score" href="#spielstand"><span aria-hidden="true">★</span> <span id="header-score">0 / 100 Pkt.</span></a>
+    </div>
+  </header>
+  <main id="inhalt">
+    <div class="wrap">
+      <section class="hero" aria-labelledby="title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="line"></span> Eisdiele &amp; Websecurity-Spiel</p>
+          <h1 id="title">Eis mit<br><em>Geheimnis.</em></h1>
+          <p class="lede">Drei Sorten stehen in der Theke. Eine vierte kennt nur das Lager. Knacken Sie die Sortensuche und übernehmen Sie die Eistafel im Gästebuch.</p>
+          <div class="hero-actions"><a class="button cherry" href="#raetsel">Erstes Rätsel starten</a><a class="text-link" href="#eiskarte">Eiskarte ansehen</a></div>
+          <p class="meta">2 Rätsel <span>•</span> 100 Punkte <span>•</span> Ohne Anmeldung</p>
+        </div>
+        <figure class="window">
+          <div class="awning" aria-hidden="true"></div>
+          <img class="poster" src="eistheke.jpg" width="1536" height="1024" alt="Drei Eiswaffeln mit Beeren und Kirsche, Mango und Chili sowie Minze und Schokolade.">
+          <figcaption><span class="small-star" aria-hidden="true">✦</span> Frisch aus der Krawallküche <span class="small-star" aria-hidden="true">✦</span></figcaption>
+        </figure>
+      </section>
+      <section id="eiskarte" aria-labelledby="menu-title" class="menu section">
+        <div class="section-cap"><p class="eyebrow"><span class="line"></span> In der Auslage</p><p class="label-note">Preis pro Kugel</p></div>
+        <h2 id="menu-title">Die Eiskarte<span>.</span></h2>
+        <div class="shelf" id="shelf">
+          <article class="flavour berry" data-name="Disco-Kirsche" data-ingredients="Sauerkirsche Heidelbeere Pistazie">
+            <img src="kirsche.jpg" alt="" width="480" height="360" loading="lazy">
+            <div><h3>Disco-Kirsche</h3><p>Sauerkirsche, Heidelbeere &amp; Pistazie</p><strong>2,40 €</strong></div>
+          </article>
+          <article class="flavour mango" data-name="Mango-Moshpit" data-ingredients="Mango Limette Chili">
+            <img src="mango.jpg" alt="" width="480" height="360" loading="lazy">
+            <div><h3>Mango-Moshpit</h3><p>Mango, Limette &amp; ein Hauch Chili</p><strong>2,30 €</strong></div>
+          </article>
+          <article class="flavour mint" data-name="Minzverstärker" data-ingredients="Pfefferminze Zartbitter Schoko-Crunch Minze">
+            <img src="minze.jpg" alt="" width="480" height="360" loading="lazy">
+            <div><h3>Minzverstärker</h3><p>Pfefferminze &amp; dunkler Schoko-Crunch</p><strong>2,50 €</strong></div>
+          </article>
+          <article id="secret" class="flavour secret" data-name="Mitternachtslakritz" data-ingredients="Lakritz Brombeere Meersalz" hidden>
+            <div class="secret-art" aria-hidden="true">✦</div><div><small>Aus dem Geheimlager</small><h3>Mitternachtslakritz</h3><p>Lakritz, Brombeere &amp; Meersalz</p><strong>2,70 €</strong></div>
+          </article>
+        </div>
+        <p id="empty-menu" hidden>Die Auslage ist leer. Probieren Sie eine andere Sorte oder Zutat.</p>
+      </section>
+      <noscript>Bitte aktivieren Sie JavaScript, um die Rätsel zu spielen.</noscript>
+      <section id="raetsel" class="station section" aria-labelledby="sql-title">
+        <div class="station-copy"><p class="eyebrow"><span class="line"></span> Rätsel 1 · SQL-Injection</p>
+          <h2 id="sql-title">Die vierte Sorte<span>.</span></h2>
+          <p>Suchen Sie zuerst nach einer Zutat wie „Mango“. Erweitern Sie dann die Suche so, dass auch die geheime Lagersorte erscheint.</p>
+          <details><summary>Bon aus der Eisküche lesen</summary><div class="hint"><b>Bestellbon für die Sortensuche</b><p>Die Kasse liest <code>KARTE[THEKE]</code> als „zeige die Auslage“. Auf jeder Eiskiste steht entweder <code>THEKE</code> oder <code>LAGER</code>. Ein Plus verbindet zwei Bereiche innerhalb derselben Klammer.</p></div></details>
+          <details><summary>Zusätzlicher Tipp</summary><p>Lassen Sie THEKE im Feld stehen und ergänzen Sie LAGER innerhalb der eckigen Klammern. Der Bon zeigt Ihnen, welches Wort vor der Klammer steht.</p></details>
+        </div>
+        <div class="counter"><div class="counter-head"><strong>Sortensuche</strong><span class="chip" id="sql-chip">50 Pkt.</span></div>
+          <form id="search-form"><label for="search">Sorte, Zutat oder Kassenbefehl</label><div class="field-row"><input id="search" type="search" maxlength="160" placeholder="z. B. Mango" autocomplete="off"><button class="button dark" type="submit">Suchen</button></div></form>
+          <p id="search-result" class="feedback" role="status">Die Kasse durchsucht die drei Sorten in der Theke.</p>
+          <a class="text-link" href="#eiskarte">Treffer in der Eiskarte ansehen</a>
+          <div class="lesson" id="sql-lesson" hidden><strong>Was ist im Modell passiert?</strong><p>Die Kasse hat einen Suchwert als Anweisung behandelt und auch das Lager angezeigt. Bei SQL-Injection verändert eine Eingabe die Datenbankabfrage. Parametrisierte Abfragen halten Anweisung und Suchwert getrennt.</p><a class="text-link" href="#gaestebuch">Zum Gästebuch</a></div>
+        </div>
+      </section>
+      <section id="gaestebuch" class="station section" aria-labelledby="xss-title">
+        <div class="station-copy"><p class="eyebrow"><span class="line"></span> Rätsel 2 · Cross-Site-Scripting</p>
+          <h2 id="xss-title">Krach an der Eistafel<span>.</span></h2>
+          <p>Ein normaler Gästebucheintrag erscheint unter „Letzter Eintrag“. Finden Sie heraus, wie Ihr Eintrag stattdessen die Meldung <b>KIRSCHALARM</b> auf der Eistafel auslösen kann.</p>
+          <details><summary>Notizzettel am Gästebuch lesen</summary><div class="hint"><b>Vom letzten Schichtwechsel</b><p>Der alte Tafelstempel hieß <code>[TAFEL]PAUSE[/TAFEL]</code>. Der Text zwischen den Marken bestimmt die Meldung. Den heutigen Alarmnamen finden Sie im Auftrag.</p></div></details>
+          <details><summary>Zusätzlicher Tipp</summary><p>Ersetzen Sie auf dem Notizzettel nur das Wort PAUSE durch den gesuchten Alarmnamen. Übernehmen Sie beide Tafelmarken in Ihren Eintrag.</p></details>
+        </div>
+        <div class="counter"><div class="counter-head"><strong>Gästebuch</strong><span class="chip" id="xss-chip">50 Pkt.</span></div>
+          <div class="chalkboard"><span>Eistafel</span><strong id="board">Heute frisch gerührt!</strong></div>
+          <form id="guest-form"><label for="entry">Ihr Eintrag</label><textarea id="entry" rows="2" maxlength="200" placeholder="Wie schmeckt Ihr Eis?" required></textarea><button class="button dark" type="submit">Eintrag testen</button></form>
+          <div class="last"><b>Letzter Eintrag</b><span id="last-entry">Das Gästebuch ist noch leer.</span></div>
+          <p class="feedback" id="guest-result" role="status"></p>
+          <div class="lesson" id="xss-lesson" hidden><strong>Was ist im Modell passiert?</strong><p>Der Eintrag hat die Tafel verändert. Bei echtem XSS kann fremder Code im Browser mit den Rechten der Seite laufen. Hier schaltet eine Spielregel die Anzeige um. Für reine Textausgaben in einem gewöhnlichen HTML-Element eignet sich <code>textContent</code>.</p></div>
+        </div>
+      </section>
+      <section class="scoreboard section" id="spielstand" aria-labelledby="score-title">
+        <div><p class="eyebrow">Ihr Spielstand</p><h2 id="score-title"><span id="total">0</span> / 100 Punkte</h2><p id="progress-copy" role="status">Zwei Rätsel warten auf Sie.</p>
+        <p class="storage-note" id="storage-note">Ihr Fortschritt wird in diesem Browser gespeichert.</p></div>
+        <div><ul class="tally"><li>Die vierte Sorte <strong id="sql-score">0 / 50</strong></li><li>Krach an der Eistafel <strong id="xss-score">0 / 50</strong></li></ul><button class="text-link reset" id="reset-button" type="button">Neue Runde beginnen</button></div>
+      </section>
+    </div>
+  </main>
+  <footer><div class="wrap"><a class="brand" href="#inhalt"><span class="cone-mark" aria-hidden="true"></span>Kugelkrawall</a><p>Fiktiver Eisshop für den Web-Unterricht · Alle Eingaben werden lokal verarbeitet.</p></div></footer>
+  <dialog id="reset-dialog" aria-labelledby="reset-title"><h2 id="reset-title">Neue Runde?</h2><p>Die Punkte und Einträge dieser Runde werden auf diesem Gerät zurückgesetzt.</p><form method="dialog"><button class="button dark" value="cancel" autofocus>Weiterspielen</button><button class="button plain" value="reset">Runde zurücksetzen</button></form></dialog>
+</body>
+</html>
